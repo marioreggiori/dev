@@ -16,7 +16,8 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 ENV PATH="${PATH}:$(go env GOPATH)/bin"
 
 USER vscode
-RUN go install golang.org/x/tools/gopls@v0.7.0
+RUN go install golang.org/x/tools/gopls@v0.7.0 && \
+    go install github.com/go-delve/delve/cmd/dlv@latest
 
 
 # Install Golang proto tools
