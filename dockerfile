@@ -20,7 +20,7 @@ RUN go install golang.org/x/tools/gopls@latest && \
     go install github.com/go-delve/delve/cmd/dlv@latest && \
     go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest && \
     go install github.com/ramya-rao-a/go-outline@latest && \
-    go install github.com/ramya-rao-a/go-outline @latest
+    go install honnef.co/go/tools/cmd/staticcheck@latest
 
 
 # Install Golang proto tools
