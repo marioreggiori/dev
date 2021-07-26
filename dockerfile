@@ -16,13 +16,16 @@ ENV PATH="${PATH}:/usr/local/go/bin"
 ENV PATH="${PATH}:$(go env GOPATH)/bin"
 
 USER vscode
-RUN go install golang.org/x/tools/gopls@v0.7.0 && \
-    go install github.com/go-delve/delve/cmd/dlv@latest
+RUN go install golang.org/x/tools/gopls@latest && \
+    go install github.com/go-delve/delve/cmd/dlv@latest && \
+    go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest && \
+    go install github.com/ramya-rao-a/go-outline@latest && \
+    go install github.com/ramya-rao-a/go-outline @latest
 
 
 # Install Golang proto tools
-RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26 && \
-    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 USER root
 
