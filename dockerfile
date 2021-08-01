@@ -3,17 +3,15 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 WORKDIR /tmp
 
 RUN apt update && apt install -y \
-    build-essential git protobuf-compiler
-
-RUN mkdir -p /home/vscode/.dev
+    build-essential git protobuf-compiler && \
+    mkdir -p /home/vscode/.dev
 
 
 # Install Golang
-RUN wget https://golang.org/dl/go1.16.6.linux-amd64.tar.gz
-RUN sudo tar -C /usr/local -xzf go1.16.6.linux-amd64.tar.gz
-RUN rm go1.16.6.linux-amd64.tar.gz
-ENV PATH="${PATH}:/usr/local/go/bin"
-ENV PATH="${PATH}:$(go env GOPATH)/bin"
+RUN wget https://golang.org/dl/go1.16.6.linux-amd64.tar.gz && \
+    sudo tar -C /usr/local -xzf go1.16.6.linux-amd64.tar.gz && \
+    rm go1.16.6.linux-amd64.tar.gz
+ENV PATH="${PATH}:/usr/local/go/bin:$(go env GOPATH)/bin"
 
 USER vscode
 RUN go install golang.org/x/tools/gopls@latest && \
@@ -38,15 +36,14 @@ RUN sudo wget -O /usr/local/bin/protoc-gen-grpc-web https://github.com/grpc/grpc
     sudo chmod +x /usr/local/bin/protoc-gen-grpc-web
 
 # Install Flutter
-RUN apt install -y curl zip unzip xz-utils
-RUN wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.3-stable.tar.xz
-RUN tar -C /home/vscode/.dev/ -xf flutter_linux_2.2.3-stable.tar.xz
-RUN rm flutter_linux_2.2.3-stable.tar.xz
+RUN apt install -y curl zip unzip xz-utils && \
+    wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.3-stable.tar.xz && \
+    tar -C /home/vscode/.dev/ -xf flutter_linux_2.2.3-stable.tar.xz && \
+    rm flutter_linux_2.2.3-stable.tar.xz && \
+    chown -R vscode:vscode /home/vscode/.dev
 ENV PATH="${PATH}:/home/vscode/.dev/flutter/bin"
-RUN chown -R vscode:vscode /home/vscode/.dev
-USER vscode
-RUN flutter config --no-analytics
-RUN flutter precache
-USER root
 
 USER vscode
+
+RUN flutter config --no-analytics && \
+    flutter precache
