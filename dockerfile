@@ -38,15 +38,15 @@ RUN sudo wget -O /usr/local/bin/protoc-gen-grpc-web https://github.com/grpc/grpc
     sudo chmod +x /usr/local/bin/protoc-gen-grpc-web
 
 # Install Flutter
-#RUN apt install -y curl zip unzip xz-utils
-#RUN wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.3-stable.tar.xz
-#RUN tar -C /home/vscode/.dev/ -xf flutter_linux_2.2.3-stable.tar.xz
-#RUN rm flutter_linux_2.2.3-stable.tar.xz
-#ENV PATH="${PATH}:/home/vscode/.dev/flutter/bin"
-#RUN chown -R vscode:vscode /home/vscode/.dev
-#USER vscode
-#RUN flutter config --no-analytics
-#RUN flutter precache
-#USER root
+RUN apt install -y curl zip unzip xz-utils
+RUN wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.3-stable.tar.xz
+RUN tar -C /home/vscode/.dev/ -xf flutter_linux_2.2.3-stable.tar.xz
+RUN rm flutter_linux_2.2.3-stable.tar.xz
+ENV PATH="${PATH}:/home/vscode/.dev/flutter/bin"
+RUN chown -R vscode:vscode /home/vscode/.dev
+USER vscode
+RUN flutter config --no-analytics
+RUN flutter precache
+USER root
 
 USER vscode
